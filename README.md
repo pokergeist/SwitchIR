@@ -16,6 +16,7 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 * Source smaller 4-pole resistor network.
 * Determine if flyback diodes will be required (across relay contacts).
 * Remove Qwiic/STEMMA QT if present on MCU, or add pads for pull-up resistors.
+* Reorder Kn and JP1.
 
 ## Components
 
