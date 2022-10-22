@@ -10,6 +10,10 @@ Provides the ability to receive IR remote signals from an IR Voice assistant and
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
+## ToDo List
+
+* Resize relay contact track for the full 2A.
+
 ## Components
 
 ### IR Receiver/Transceiver
