@@ -2,21 +2,26 @@
 
 ## Introduction
 
-Provides the ability to receive IR remote signals from an IR Voice assistant and do switchey stuff. The use of an IR transceiver & decoder will allow it to learn IR codes as well.
+Provides the ability to operate relays in response to a signal received from:
+
+* an IR Remote
+* an IR Voice assistant
+* a USB connected PC
+* or Wi-Fi.
+
+The use of an IR transceiver & decoder will allow the MCU to learn IR codes as well.
 
 ## Status
 
-**Preliminary** - Initial concept and mockup posted. Awaiting feedback.
+|    Date    | Status                                                       |
+| :--------: | ------------------------------------------------------------ |
+| 2022-10-25 | Boards and parts orders are pending JLCPCB review and Digi-Key fixing their site, again. |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
 ## ToDo List
 
-* Resize relay contact track for the full 2A.
-* Source smaller 4-pole resistor network.
-* Determine if flyback diodes will be required (across relay contacts).
-* Remove Qwiic/STEMMA QT if present on MCU, or add pads for pull-up resistors.
-* Reorder Kn and JP1.
+* Determine if flyback diodes will be required for inductive loads across relay contacts.
 
 ## Components
 
@@ -26,7 +31,7 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 **Candidates**:
 
-* Vishay [TRDU4101](https://www.digikey.com/short/vzrt1tnq) [datasheet](https://www.vishay.com/docs/81288/tfdu4101.pdf)
+* Vishay [TFDU4101](https://www.digikey.com/short/vzrt1tnq) [datasheet](https://www.vishay.com/docs/81288/tfdu4101.pdf)
 
 ### IR Encoder/Decoder
 
@@ -56,8 +61,8 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 
 **Candidates**:
 
-* QT Py
-* Itsy Bitsy
+* QT Py [search](https://www.adafruit.com/?q=qt+py&sort=BestMatch)
+* ~~Itsy Bitsy~~
 
 ## Parts List
 
