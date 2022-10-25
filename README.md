@@ -7,7 +7,8 @@ Provides the ability to operate relays or send an IR signal in response to a sig
 * an IR Remote
 * an IR Voice assistant
 * a USB connected PC
-* or Wi-Fi.
+* Wi-Fi
+* or Qwiic/STEMMA QT.
 
 The use of an IR transceiver & decoder will allow the MCU to learn and transmit IR codes as well.
 
@@ -15,7 +16,7 @@ The use of an IR transceiver & decoder will allow the MCU to learn and transmit 
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
-| 2022-10-25 | Boards and parts orders are pending Digi-Key fixing their site, again. |
+| 2022-10-25 | Boards are on order. A Digi-Key parts order is pending (site issues). |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
