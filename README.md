@@ -8,21 +8,38 @@ Provides the ability to operate relays or send an IR signal in response to a sig
 * an IR Voice assistant
 * a USB connected PC
 * Wi-Fi
-* or Qwiic/STEMMA QT.
+* or I2C (via Qwiic/STEMMA QT connector).
 
-The use of an IR transceiver & decoder will allow the MCU to learn and transmit IR codes as well.
+The use of an IR transceiver & encoder/decoder will allow the MCU to learn and transmit IR codes. The input channels are bi-directional as well allowing for an appropriate response to be returned.
 
 ## Status
 
-|    Date    | Status                                                       |
-| :--------: | ------------------------------------------------------------ |
-| 2022-10-25 | Boards are on order. A Digi-Key parts order is pending (site issues). |
+|    Date    | Status                              |
+| :--------: | ----------------------------------- |
+| 2022-10-25 | Boards and parts have been ordered. |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
 ## ToDo List
 
-* Determine if flyback diodes will be required for inductive loads across relay contacts.
+* Determine if flyback diodes will be required for inductive loads across the relay contacts.
+* Increase K2A & K3A (anode) tracks to 2A class.
+
+## Notes
+
+1. Contact tracks for K2 and K3 are rated for 1.5A to reduce the width (to 20mil) to allow for routing to the far pins. A second bottom layer track could be added if needed.
+
+## Parts List
+
+| Component                                                    | Quantity | Price each |   Total    | Notes |
+| ------------------------------------------------------------ | :------: | :--------: | :--------: | ----- |
+| [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |   $5.62    |   $5.62    |       |
+| [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |   $2.65    |   $2.65    |       |
+| [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |   $1.07    |   $1.07    |       |
+| [Relays](https://www.digikey.com/short/c07nbzqb)             |    4     |   $1.85    |    7.40    |       |
+| MCU                                                          |    1     |            |            |       |
+|                                                              |          |            |            |       |
+| **Total**                                                    |          |            | **$16.74** |       |
 
 ## Components
 
@@ -65,18 +82,13 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 * QT Py [search](https://www.adafruit.com/?q=qt+py&sort=BestMatch)
 * ~~Itsy Bitsy~~
 
-## Parts List
-
-| Component                                                    | Quantity | Price each |   Total    | Notes |
-| ------------------------------------------------------------ | :------: | :--------: | :--------: | ----- |
-| [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |   $5.62    |   $5.62    |       |
-| [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |   $2.65    |   $2.65    |       |
-| [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |   $1.07    |   $1.07    |       |
-| [Relays](https://www.digikey.com/short/c07nbzqb)             |    4     |   $1.85    |    7.40    |       |
-| MCU                                                          |    1     |            |            |       |
-|                                                              |          |            |            |       |
-| **Total**                                                    |          |            | **$16.74** |       |
-
 ## Board
 
+**JLCPCB**:
+
+![fab rendering](hardware/board/JLC.png)
+
+**Eagle**:
+
 ![board-top](hardware/board/board-top.png)
+
