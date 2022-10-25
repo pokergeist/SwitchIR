@@ -2,20 +2,20 @@
 
 ## Introduction
 
-Provides the ability to operate relays in response to a signal received from:
+Provides the ability to operate relays or send an IR signal in response to a signal received from:
 
 * an IR Remote
 * an IR Voice assistant
 * a USB connected PC
 * or Wi-Fi.
 
-The use of an IR transceiver & decoder will allow the MCU to learn IR codes as well.
+The use of an IR transceiver & decoder will allow the MCU to learn and transmit IR codes as well.
 
 ## Status
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
-| 2022-10-25 | Boards and parts orders are pending JLCPCB review and Digi-Key fixing their site, again. |
+| 2022-10-25 | Boards and parts orders are pending Digi-Key fixing their site, again. |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
