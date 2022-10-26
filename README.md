@@ -14,9 +14,10 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 ## Status
 
-|    Date    | Status                              |
-| :--------: | ----------------------------------- |
-| 2022-10-25 | Boards and parts have been ordered. |
+|    Date    | Status                                                    |
+| :--------: | --------------------------------------------------------- |
+| 2022-10-25 | Reworked defective transceiver library part and passives. |
+| 2022-10-25 | Rev 1a boards and parts have been ordered.                |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
@@ -31,15 +32,18 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 ## Parts List
 
-| Component                                                    | Quantity | Price each |   Total    | Notes |
-| ------------------------------------------------------------ | :------: | :--------: | :--------: | ----- |
-| [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |   $5.62    |   $5.62    |       |
-| [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |   $2.65    |   $2.65    |       |
-| [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |   $1.07    |   $1.07    |       |
-| [Relays](https://www.digikey.com/short/c07nbzqb)             |    4     |   $1.85    |    7.40    |       |
-| MCU                                                          |    1     |            |            |       |
-|                                                              |          |            |            |       |
-| **Total**                                                    |          |            | **$16.74** |       |
+|       | Component                                                    | Quantity | Price each |   Total    | Notes |
+| :---: | ------------------------------------------------------------ | :------: | :--------: | :--------: | ----- |
+|  U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |   $5.62    |   $5.62    |       |
+|  U2   | [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |   $2.65    |   $2.65    |       |
+|  OS1  | [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |   $1.07    |   $1.07    |       |
+| K1-K4 | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |   $1.85    |    7.40    |       |
+|  C1   | 16V 47µF 1206 tantalum [capacitor](https://www.digikey.com/short/nt979437) |    1     |   $0.36    |   $0.36    |       |
+|  C2   | 16V 0.1µF 1206 ceramic [capacitor](https://www.digikey.com/short/2hbqb9fq) |    1     |   $0.11    |   $0.11    |       |
+|  R1   | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |    1     |   $0.10    |   $0.10    |       |
+|  U3   | MCU - Adafruit QT Py                                         |    1     |            |            |       |
+|       |                                                              |          |            |            |       |
+|       | **Total**                                                    |          |            | **$xx.xx** |       |
 
 ## Components
 
@@ -83,10 +87,6 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 * ~~Itsy Bitsy~~
 
 ## Board
-
-**JLCPCB**:
-
-![fab rendering](hardware/board/JLC.png)
 
 **Eagle**:
 
