@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-10-29 | Parts are here, boards are on their way from China.          |
 | 2022-10-26 | Rev 1b boards ordered. Order for passives is pending.        |
 | 2022-10-25 | Reworking defective transceiver library part and added passives (finally). |
 | 2022-10-25 | Rev 1a ~~boards and~~ parts have been ordered.               |
