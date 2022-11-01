@@ -16,12 +16,21 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-10-31 | Boards are in, (1) panel partially populated and under test. |
 | 2022-10-29 | Parts are here, boards are on their way from China.          |
 | 2022-10-26 | Rev 1b boards ordered. Order for passives is pending.        |
 | 2022-10-25 | Reworking defective transceiver library part and added passives (finally). |
 | 2022-10-25 | Rev 1a ~~boards and~~ parts have been ordered.               |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
+
+### Testing Status:
+
+One panel of four boards is populated, sans relays and QT Py SAMD21 MCUs. Only one board has a MCU right now. More headers and QT Pys are on order.
+
+At the moment the encoder/decoder is not getting a clock input from the oscillator. I'll get 3V/GND to the other boards and see if it's a solder rework issue or a chip orientation issue. There is no obvious marking except maybe a modified pad 1 which doesn't match the datasheet.
+
+Transmitted data (serial and IR) is showing up at the encoder/decoder's input pins.
 
 ## ToDo List
 
@@ -33,19 +42,19 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 ## Parts List
 
-|       | Component                                                    | Quantity | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
-| :---: | ------------------------------------------------------------ | :------: | :----------------: | :-------------------: | :------------: | ---------------- |
-|  U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |       $5.62        |         $5.05         |     $5.62      | $5.05            |
-|  U2   | [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |       $2.65        |        $2.382         |     $2.65      | $2.38            |
-|  OS1  | [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |       $1.07        |        $0.946         |     $1.07      | $0.95            |
-| K1-K4 | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |       $1.85        |        $1.232         |      7.40      | $4.93            |
-|  C1   | 16V 47µF 1206 tantalum [capacitor](https://www.digikey.com/short/nt979437) |    1     |       $0.36        |        $0.249         |     $0.36      | $0.25            |
-|  C2   | 16V 0.1µF 1206 ceramic [capacitor](https://www.digikey.com/short/2hbqb9fq) |    1     |       $0.11        |        $0.076         |     $0.11      | $0.08            |
-|  R1   | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |    1     |       $0.10        |        $0.032         |     $0.10      | $0.03            |
-|  RN1  | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |    1     |       $0.10        |        $0.087         |     $0.10      | $0.09            |
-|  U3   | MCU - Adafruit QT Py                                         |    1     |                    |                       |                |                  |
-|       |                                                              |          |                    |                       |                |                  |
-|       | **Total**                                                    |          |                    |                       |   **$17.41**   | **$13.75**       |
+|        | Component                                                    | Quantity | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
+| :----: | ------------------------------------------------------------ | :------: | :----------------: | :-------------------: | :------------: | ---------------- |
+|   U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |       $5.62        |         $5.05         |     $5.62      | $5.05            |
+|   U2   | [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |       $2.65        |        $2.382         |     $2.65      | $2.38            |
+|  OS1   | [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |       $1.07        |        $0.946         |     $1.07      | $0.95            |
+| K1-K4  | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |       $1.85        |        $1.232         |      7.40      | $4.93            |
+|   C1   | 16V 47µF 1206 tantalum [capacitor](https://www.digikey.com/short/nt979437) |    1     |       $0.36        |        $0.249         |     $0.36      | $0.25            |
+|   C2   | 16V 0.1µF 1206 ceramic [capacitor](https://www.digikey.com/short/2hbqb9fq) |    1     |       $0.11        |        $0.076         |     $0.11      | $0.08            |
+|   R1   | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |    1     |       $0.10        |        $0.032         |     $0.10      | $0.03            |
+|  RN1   | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |    1     |       $0.10        |        $0.087         |     $0.10      | $0.09            |
+|   U3   | MCU - Adafruit QT Py                                         |    1     |                    |                       |                |                  |
+| U3-hdr | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |    2     |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
+|        | **Total**                                                    |          |                    |                       |   **$17.41**   | **$13.75**       |
 
 Digi-Key (US) Component pricing as of 2022-10-26.
 
