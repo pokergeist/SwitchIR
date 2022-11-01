@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-01 | Replacement oscillators are on order (and more QT Pys and headers). |
 | 2022-10-31 | Boards are in, (1) panel partially populated and under test. |
 | 2022-10-29 | Parts are here, boards are on their way from China.          |
 | 2022-10-26 | Rev 1b boards ordered. Order for passives is pending.        |
@@ -32,8 +33,15 @@ At the moment the encoder/decoder is not getting a clock input from the oscillat
 
 Transmitted data (serial and IR) is showing up at the encoder/decoder's input pins.
 
+**Conclusion:**
+
+An incorrect prototype footprint was used. A replacement is being ordered that will fit. Future production revisions will revert to the cheaper Ralton.
+
 ## ToDo List
 
+* Put a cutout in the board for the QT Py SPI Flash option to allow castellated mounting.
+* Maybe add some test points for access to inaccessible pads.
+* Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
 
 ## Notes
@@ -46,7 +54,8 @@ Transmitted data (serial and IR) is showing up at the encoder/decoder's input pi
 | :----: | ------------------------------------------------------------ | :------: | :----------------: | :-------------------: | :------------: | ---------------- |
 |   U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |       $5.62        |         $5.05         |     $5.62      | $5.05            |
 |   U2   | [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |       $2.65        |        $2.382         |     $2.65      | $2.38            |
-|  OS1   | [Oscillator](https://www.digikey.com/short/chp5z3nb)         |    1     |       $1.07        |        $0.946         |     $1.07      | $0.95            |
+|  OS1   | [Oscillator](https://www.digikey.com/short/m8qd5z0f) for Rev 1a |    1     |       $1.79        |        $1.709         |     $1.79      | $1.709           |
+|  OS1   | [Oscillator](https://www.digikey.com/short/chp5z3nb) (future?) |    1     |       $1.07        |        $0.946         |    ()$1.07)    | ()$0.95)         |
 | K1-K4  | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |       $1.85        |        $1.232         |      7.40      | $4.93            |
 |   C1   | 16V 47µF 1206 tantalum [capacitor](https://www.digikey.com/short/nt979437) |    1     |       $0.36        |        $0.249         |     $0.36      | $0.25            |
 |   C2   | 16V 0.1µF 1206 ceramic [capacitor](https://www.digikey.com/short/2hbqb9fq) |    1     |       $0.11        |        $0.076         |     $0.11      | $0.08            |
@@ -54,7 +63,8 @@ Transmitted data (serial and IR) is showing up at the encoder/decoder's input pi
 |  RN1   | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |    1     |       $0.10        |        $0.087         |     $0.10      | $0.09            |
 |   U3   | MCU - Adafruit QT Py                                         |    1     |                    |                       |                |                  |
 | U3-hdr | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |    2     |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
-|        | **Total**                                                    |          |                    |                       |   **$17.41**   | **$13.75**       |
+|  JP1   | [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |    1     |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.182)         |
+|        | **Total**                                                    |          |                    |                       | ~~**$17.41**~~ | ~~**$13.75**~~   |
 
 Digi-Key (US) Component pricing as of 2022-10-26.
 
@@ -83,6 +93,8 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 ### Oscillator
 
 [Ralton 1.8432 MHz](https://www.digikey.com/short/88tr2mvc) [Datasheet](https://www.raltron.com/webproducts/specs/CLOCK_OSCILLATOR/CO4305-1.8432-EXT-T-TR.pdf)
+
+Replaced by the Abracon LLC ASFL1-1.8432MHZ-L-T due fitment issues for Rev 1a.
 
 ### Solid-State Relays
 
