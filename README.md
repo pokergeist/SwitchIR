@@ -107,6 +107,10 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 
 ![board-top](hardware/board/board-top.png)
 
+**Unit under test**:
+
+![panel](hardware/board/panel.jpg)
+
 ## Enclosure
 
 [README file](hardware/enclosure/README.md) in hardware/enclosure/
