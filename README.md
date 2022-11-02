@@ -27,6 +27,14 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 ### Testing Status:
 
+**2022-11-01**
+
+In lieu of an oscillator that fits, a function generator was used to provide1.8432MHz timing to the encoder/decoder IC. Remote IR signals were received and are being parsed. It is not obvious that messages transmitted by the MCU are being output by the IR transceiver. The operation IR remotes is visible via my cell phone camera and other CCD devices. It's possible that it's a soldering issue - I'll know more when I get the new hardware. I'm eager to get these boards fab'ed with pick & place equipment.
+
+---
+
+**2022-10-31**
+
 One panel of four boards is populated, sans relays and QT Py SAMD21 MCUs. Only one board has a MCU right now. More headers and QT Pys are on order.
 
 At the moment the encoder/decoder is not getting a clock input from the oscillator. I'll get 3V/GND to the other boards and see if it's a solder rework issue or a chip orientation issue. There is no obvious marking except maybe a modified pad 1 which doesn't match the datasheet.
@@ -39,7 +47,9 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 ## ToDo List
 
-* Put a cutout in the board for the QT Py SPI Flash option to allow castellated mounting.
+* Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pads.
+* Route IR_rx data line to an interrupt capable pin on the MCU.
+* Add 1µF decoupling caps for encoder/decoder.
 * Maybe add some test points for access to inaccessible pads.
 * Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
@@ -94,7 +104,7 @@ mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/
 
 [Ralton 1.8432 MHz](https://www.digikey.com/short/88tr2mvc) [Datasheet](https://www.raltron.com/webproducts/specs/CLOCK_OSCILLATOR/CO4305-1.8432-EXT-T-TR.pdf)
 
-Replaced by the Abracon LLC ASFL1-1.8432MHZ-L-T due fitment issues for Rev 1a.
+Replaced by the Abracon LLC ASFL1-1.8432MHZ-L-T due to fitment issues for Rev 1a.
 
 ### Solid-State Relays
 

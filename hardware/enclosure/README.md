@@ -24,6 +24,8 @@ My narrow OpenSCAD file code formatting matches my editor window. Formatting of 
 | SwitchIR_base_v3.stl          | File for 3-D printing.                                       |
 | SwitchIR_lid_v3.stl           | File for 3-D printing.                                       |
 | SwitchIR_base_with_boards.stl | File for viewing board layout, **not for printing**.         |
+| mylibs/components.scad        | library for PCB components. Copy to local dir or OpenSCAD/libraries. |
+| mylibs/mcus.scad              | library for microcontrollers. Copy to local dir or OpenSCAD/libraries. |
 
 ### Images
 
