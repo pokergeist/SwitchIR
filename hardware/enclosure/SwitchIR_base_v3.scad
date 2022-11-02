@@ -50,7 +50,7 @@ win_ir_z_offset = post_height + pcb_thickness;
 
 $fn = 90;
 
-SHOW_BOARD = true; // set to false before rendering stl
+SHOW_BOARD = false; // set to false before rendering stl
 
 // build it
 

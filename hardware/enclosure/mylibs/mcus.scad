@@ -4,7 +4,7 @@
  **************************/
 
 
-include <mylibs/components.scad>
+include <components.scad>
 
 module qt_py (dx, dy, dz) {
   pcb_thickness = 1.6;
