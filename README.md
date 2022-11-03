@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-03-22 | Moving from the IRDA hardware to something else. See below.  |
 | 2022-11-01 | Replacement oscillators are on order (and more QT Pys and headers). |
 | 2022-10-31 | Boards are in, (1) panel partially populated and under test. |
 | 2022-10-29 | Parts are here, boards are on their way from China.          |
@@ -27,9 +28,15 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 ### Testing Status:
 
+**2022-11-03**
+
+It occurred to me that since I was receiving transmitted data, apparently from the IR receiver, it looks like the transmitter is working.
+
+**Paradigm shift**: I'll be abandoning the IRDA hardware as it is not applicable to Consumer IR remote controls. I'll be looking to do more with Chris Young's IRLib2 library and direct access to the IR transceiver.
+
 **2022-11-01**
 
-In lieu of an oscillator that fits, a function generator was used to provide1.8432MHz timing to the encoder/decoder IC. Remote IR signals were received and are being parsed. It is not obvious that messages transmitted by the MCU are being output by the IR transceiver. The operation IR remotes is visible via my cell phone camera and other CCD devices. It's possible that it's a soldering issue - I'll know more when I get the new hardware. I'm eager to get these boards fab'ed with pick & place equipment.
+In lieu of an oscillator that fits, a function generator was used to provide1.8432MHz timing to the encoder/decoder IC. Remote IR signals were received and are being parsed. It is not obvious that messages transmitted by the MCU are being output by the IR transceiver. The operation of IR remotes is visible via my cell phone camera and other CCD devices. It's possible that it's a soldering issue - I'll know more when I get the new hardware. I'm eager to get these boards fab'ed with pick & place equipment.
 
 ---
 
@@ -51,6 +58,7 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 * Route IR_rx data line to an interrupt capable pin on the MCU.
 * Add 1µF decoupling caps for encoder/decoder.
 * Maybe add some test points for access to inaccessible pads.
+* Maybe flip the MCU and feed the USB cable out of the back slot.
 * Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
 
@@ -58,12 +66,33 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 1. Contact tracks for K2 and K3 are rated for 1.5A to reduce the width (to 20mil) to allow for routing to the far pins. A second bottom layer track could be added if needed.
 
+## References
+
+Chris Young's Ultimate Remote and IR library.
+
+* [IRLib2](https://github.com/cyborg5/IRLib2)
+* Ultimate Remote:
+  * GitHub [repo](https://github.com/cyborg5/Ultimate-Remote)
+  * [Building Guide](https://learn.adafruit.com/building-the-assistive-technology-ultimate-remote/) hosted on Adafruit Learn
+  * [Demo](https://www.youtube.com/watch?v=zmK1W0HwCh0&ab_channel=ChrisYoung) video
+  * Video intro on [ATMakers](http://atmakers.org/2021/08/ultimate-remote-chris-young-tour/) and [YouTube](https://www.youtube.com/watch?v=doWbv29P5To&ab_channel=ATMakers)
+
+hi-fi-remote.com's IRP and JP1 project
+
+* IRP (IR remote protocol description notation)
+  * John Long's [Interpreting Decoded IR Signals](http://www.hifi-remote.com/johnsfine/DecodeIR.html) (Listings and details)
+  * Graham Dixon's [IRP Notation](http://hifi-remote.com/wiki/index.php?title=IRP_Notation)
+* JP1 Remote Project
+  * [History](http://www.hifi-remote.com/wiki/index.php/The_History_of_the_JP1_Project) with links to other interesting projects
+  * JP1 [Main](http://www.hifi-remote.com/wiki/index.php/Main_Page) Page
+  * The One For All Universal IR remote which appears to be the focus of the JP1 effort, given the JP1 lable near the battery pack. Model [URC3680](https://www.amazon.com/dp/B09ZHM3D9R/) on Amazon.
+
 ## Parts List
 
 |        | Component                                                    | Quantity | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
 | :----: | ------------------------------------------------------------ | :------: | :----------------: | :-------------------: | :------------: | ---------------- |
 |   U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |       $5.62        |         $5.05         |     $5.62      | $5.05            |
-|   U2   | [IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0) |    1     |       $2.65        |        $2.382         |     $2.65      | $2.38            |
+| ~~U2~~ | ~~[IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0)~~ |  ~~1~~   |     ~~$2.65~~      |      ~~$2.382~~       |   ~~$2.65~~    | ~~$2.38~~        |
 |  OS1   | [Oscillator](https://www.digikey.com/short/m8qd5z0f) for Rev 1a |    1     |       $1.79        |        $1.709         |     $1.79      | $1.709           |
 |  OS1   | [Oscillator](https://www.digikey.com/short/chp5z3nb) (future?) |    1     |       $1.07        |        $0.946         |    ()$1.07)    | ()$0.95)         |
 | K1-K4  | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |       $1.85        |        $1.232         |      7.40      | $4.93            |
@@ -90,15 +119,13 @@ Pricing for (20) boards is based on (5) 2x2 panels. Total pricing for some compo
 
 * Vishay [TFDU4101](https://www.digikey.com/short/vzrt1tnq) [datasheet](https://www.vishay.com/docs/81288/tfdu4101.pdf)
 
-### IR Encoder/Decoder
+### ~~IR Encoder/Decoder~~
 
-[D-K Search](https://www.digikey.com/short/2fjh0cfm)
+~~[D-K Search](https://www.digikey.com/short/2fjh0cfm)~~
 
-**Candidates**:
+~~**Candidates**:~~
 
-* TI [TIR1000IPS](https://www.digikey.com/short/4tt0fcq9) [datasheet](https://www.ti.com/lit/ds/symlink/tir1000.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1665909863182&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftir1000)
-
-mockup: Vishay TFDU4101 (Mouser) [datasheet](https://www.mouser.com/datasheet/2/427/tfdu4101-1766841.pdf)
+* ~~TI [TIR1000IPS](https://www.digikey.com/short/4tt0fcq9) [datasheet](https://www.ti.com/lit/ds/symlink/tir1000.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1665909863182&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftir1000)~~
 
 ### Oscillator
 
