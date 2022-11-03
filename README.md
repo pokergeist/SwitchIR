@@ -85,7 +85,7 @@ hi-fi-remote.com's IRP and JP1 project
 * JP1 Remote Project
   * [History](http://www.hifi-remote.com/wiki/index.php/The_History_of_the_JP1_Project) with links to other interesting projects
   * JP1 [Main](http://www.hifi-remote.com/wiki/index.php/Main_Page) Page
-  * The One For All Universal IR remote which appears to be the focus of the JP1 effort, given the JP1 lable near the battery pack. Model [URC3680](https://www.amazon.com/dp/B09ZHM3D9R/) on Amazon.
+  * The One For All Universal IR remotes which are the focus of the JP1 effort, given the JP1 label on the battery connector. Model [URC3680](https://www.amazon.com/dp/B09ZHM3D9R/) on Amazon.
 
 ## Parts List
 
