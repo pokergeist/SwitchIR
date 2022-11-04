@@ -16,7 +16,8 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
-| 2022-03-22 | Moving from the IRDA hardware to something else. See below.  |
+| 2022-11-04 | Success with IRLib2.                                         |
+| 2022-11-03 | Moving from the IRDA hardware to something else. See below.  |
 | 2022-11-01 | Replacement oscillators are on order (and more QT Pys and headers). |
 | 2022-10-31 | Boards are in, (1) panel partially populated and under test. |
 | 2022-10-29 | Parts are here, boards are on their way from China.          |
@@ -27,6 +28,41 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
 ### Testing Status:
+
+**2022-11-04**
+
+**Success** - finally. I'm running IRLib2 example programs dump.ino and analyze.ino after giving IRLib the option to invert the interpreted polarity of the input signal from the IR receiver.
+
+**The attachInterrupt()) rabbit hole**: With no initial luck I tried passing interrupt 11 directly into attachInterrupt() instead of digitalPinToInterrupt(8). For the QT Py SAMD21 it turns out that attachInterrupt() calls macro digitalPinToInterrupt() expecting a enum EExt_Interrupts value. If you store the results of digitalPinToInterrupt(8) to an int, or use it as the interrupt parameter, you get 8, not interrupt 11. but if you call  attachInterrupt(11, ...) it converts it to interrupt 2 - not good. So there's a sneaky conversion between EExt_Interrupts  and int somewhere. Most of the time digitalPinToInterrupt() appears to do nothing until an EExt_Interrupts can be accepted. Anyway, that was an adventure with the Segger J-link debugger, Doxygen, and find | xargs | grep in the bowels of the Arduino board code, samd/\<ver>/cores/arduino/WVariant.h and Winterrupts.c may be of interest.
+
+**Anyway...** so finally I modified the IRLib2 code to allow me to indicate that the IR LED signal is inverted (my transceiver pulls the signal down when IR is present) and provided a global readRecvPin() function that can invert the interpretation of the digitalRead(), i.e., HIGH from MARK to SPACE. That allows dump.ino to spit out something like:
+
+```
+Decoded Unknown(0): Value:0 Adrs:0 (0 bits) 
+Raw samples(100): Gap:57
+  Head: m195  s75
+0:m65511 s75	1:m65511 s75		 2:m65511 s75	3:m65511 s74		 
+4:m65511 s75	5:m65511 s75		 6:m65511 s75	7:m65511 s75		 
+8:m65511 s75	9:m65510 s75		 10:m65511 s75	11:m65511 s75		 
+12:m65511 s75	13:m65511 s75		 14:m65510 s75	15:m65511 s75		 
+
+16:m65511 s75	17:m65511 s75		 18:m65511 s75	19:m65510 s75		 
+20:m65511 s75	21:m65511 s75		 22:m65511 s75	23:m572 s75		 
+24:m65511 s75	25:m65511 s75		 26:m65511 s75	27:m65511 s74		 
+28:m65511 s75	29:m65511 s75		 30:m65511 s75	31:m65511 s75		 
+
+32:m65511 s75	33:m65510 s75		 34:m65511 s75	35:m65511 s75		 
+36:m65511 s75	37:m65511 s75		 38:m65510 s75	39:m65511 s75		 
+40:m65511 s75	41:m65511 s75		 42:m65511 s75	43:m65511 s74		 
+44:m65511 s75	45:m65511 s75		 46:m65511 s75	47:m572 s75		 
+
+48:m65511
+Extent=3084023
+Mark  min:572	 max:65511
+Space min:74	 max:75
+```
+
+I'm off to evaluate new IR hardware as the current transceiver is only good for 1m.
 
 **2022-11-03**
 
@@ -86,6 +122,11 @@ hi-fi-remote.com's IRP and JP1 project
   * [History](http://www.hifi-remote.com/wiki/index.php/The_History_of_the_JP1_Project) with links to other interesting projects
   * JP1 [Main](http://www.hifi-remote.com/wiki/index.php/Main_Page) Page
   * The One For All Universal IR remotes which are the focus of the JP1 effort, given the JP1 label on the battery connector. Model [URC3680](https://www.amazon.com/dp/B09ZHM3D9R/) on Amazon.
+
+Other resources to investigate:
+
+* [irdb](https://github.com/probonopd/irdb)
+* [Arduino IR Remote](https://github.com/Arduino-IRremote/Arduino-IRremote)
 
 ## Parts List
 
