@@ -130,21 +130,21 @@ Other resources to investigate:
 
 ## Parts List
 
-|        | Component                                                    | Quantity | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
-| :----: | ------------------------------------------------------------ | :------: | :----------------: | :-------------------: | :------------: | ---------------- |
-|   U1   | [IR Transceiver](https://www.digikey.com/short/1355hrb3)     |    1     |       $5.62        |         $5.05         |     $5.62      | $5.05            |
-| ~~U2~~ | ~~[IR Encoder/Decoder](https://www.digikey.com/short/p2qnwtz0)~~ |  ~~1~~   |     ~~$2.65~~      |      ~~$2.382~~       |   ~~$2.65~~    | ~~$2.38~~        |
-|  OS1   | [Oscillator](https://www.digikey.com/short/m8qd5z0f) for Rev 1a |    1     |       $1.79        |        $1.709         |     $1.79      | $1.709           |
-|  OS1   | [Oscillator](https://www.digikey.com/short/chp5z3nb) (future?) |    1     |       $1.07        |        $0.946         |    ()$1.07)    | ()$0.95)         |
-| K1-K4  | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |    4     |       $1.85        |        $1.232         |      7.40      | $4.93            |
-|   C1   | 16V 47µF 1206 tantalum [capacitor](https://www.digikey.com/short/nt979437) |    1     |       $0.36        |        $0.249         |     $0.36      | $0.25            |
-|   C2   | 16V 0.1µF 1206 ceramic [capacitor](https://www.digikey.com/short/2hbqb9fq) |    1     |       $0.11        |        $0.076         |     $0.11      | $0.08            |
-|   R1   | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |    1     |       $0.10        |        $0.032         |     $0.10      | $0.03            |
-|  RN1   | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |    1     |       $0.10        |        $0.087         |     $0.10      | $0.09            |
-|   U3   | MCU - Adafruit QT Py                                         |    1     |                    |                       |                |                  |
-| U3-hdr | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |    2     |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
-|  JP1   | [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |    1     |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.182)         |
-|        | **Total**                                                    |          |                    |                       | ~~**$17.41**~~ | ~~**$13.75**~~   |
+|  Device   | Component                                                    |  Quantity   | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
+| :-------: | ------------------------------------------------------------ | :---------: | :----------------: | :-------------------: | :------------: | ---------------- |
+|  **IR**   | **Send/Receive**                                             | **Section** |                    |                       |                |                  |
+|    U1     | IR Receiver                                                  |             |                    |                       |                |                  |
+|    D1     | IR Transmitter                                               |             |                    |                       |                |                  |
+| **Relay** | **Section**                                                  |             |                    |                       |                |                  |
+|    R1     | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |      1      |       $0.10        |        $0.032         |     $0.10      | $0.03            |
+|    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
+|   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
+|  **MCU**  | **Headers**                                                  |    **&**    |   **Terminals**    |                       |                |                  |
+|    U3     | MCU - Adafruit QT Py                                         |      1      |                    |                       |                |                  |
+|  U3-hdr   | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |      2      |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
+|    J1     | [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |      1      |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.182)         |
+|    J1     | Screw Terminals (optional)                                   |             |                    |                       |                |                  |
+|           | **Total**                                                    |             |                    |                       |   **$xx.xx**   | **$xx.xx**       |
 
 Digi-Key (US) Component pricing as of 2022-10-26.
 
@@ -152,27 +152,15 @@ Pricing for (20) boards is based on (5) 2x2 panels. Total pricing for some compo
 
 ## Components
 
-### IR Receiver/Transceiver
+### IR Receiver
 
-[D-K Search](https://www.digikey.com/short/qn58m0mh)
+[D-K Search](https://www.digikey.com/short/44rdjth4)
 
-**Candidates**:
+Adafruit #[157](https://www.adafruit.com/product/157)
 
-* Vishay [TFDU4101](https://www.digikey.com/short/vzrt1tnq) [datasheet](https://www.vishay.com/docs/81288/tfdu4101.pdf)
+### IR Transmitter
 
-### ~~IR Encoder/Decoder~~
-
-~~[D-K Search](https://www.digikey.com/short/2fjh0cfm)~~
-
-~~**Candidates**:~~
-
-* ~~TI [TIR1000IPS](https://www.digikey.com/short/4tt0fcq9) [datasheet](https://www.ti.com/lit/ds/symlink/tir1000.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1665909863182&ref_url=https%253A%252F%252Fwww.ti.com%252Fgeneral%252Fdocs%252Fsuppproductinfo.tsp%253FdistId%253D10%2526gotoUrl%253Dhttps%253A%252F%252Fwww.ti.com%252Flit%252Fgpn%252Ftir1000)~~
-
-### Oscillator
-
-[Ralton 1.8432 MHz](https://www.digikey.com/short/88tr2mvc) [Datasheet](https://www.raltron.com/webproducts/specs/CLOCK_OSCILLATOR/CO4305-1.8432-EXT-T-TR.pdf)
-
-Replaced by the Abracon LLC ASFL1-1.8432MHZ-L-T due to fitment issues for Rev 1a.
+Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-shop.adafruit.com/datasheets/IR333_A_datasheet.pdf)
 
 ### Solid-State Relays
 
