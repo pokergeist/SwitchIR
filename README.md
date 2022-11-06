@@ -65,6 +65,8 @@ Mark  min:572	 max:65511
 Space min:74	 max:75
 ```
 
+The IRDA IR receiver output is not demodulated (envelope detector) like the Vishay TSOP series would yield, so don't put much stock in those values.
+
 I'm off to evaluate new IR hardware as the current transceiver is only good for 1m.
 
 **2022-11-03**
@@ -181,7 +183,7 @@ Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-sh
 **Candidates**:
 
 * QT Py [search](https://www.adafruit.com/?q=qt+py&sort=BestMatch)
-* Itsy Bitsy
+* ItsyBitsy
   * M0 Express #[3727](https://www.adafruit.com/product/3727) $11.95 48MHz / 2MB SPI Flash / red and RGB DotStar LEDs
   * nRF52840 **BLE** #[4481](https://www.adafruit.com/product/4481) $19.95 64MHz /  red mini DotStar RGB LEDs
   * SAMD51 #[3800](https://www.adafruit.com/product/3800) $14.95 120MHz / red and RGB DotStar LEDs
