@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-06 | Adding ItsyBitsy into the mix.                               |
 | 2022-11-04 | Success with IRLib2.                                         |
 | 2022-11-03 | Moving from the IRDA hardware to something else. See below.  |
 | 2022-11-01 | Replacement oscillators are on order (and more QT Pys and headers). |
@@ -33,9 +34,11 @@ The full complement of Eagle and Gerber files (for PCB fabrication) will be prov
 
 **Success** - finally. I'm running IRLib2 example programs dump.ino and analyze.ino after giving IRLib the option to invert the interpreted polarity of the input signal from the IR receiver.
 
-**The attachInterrupt()) rabbit hole**: With no initial luck I tried passing interrupt 11 directly into attachInterrupt() instead of digitalPinToInterrupt(8). For the QT Py SAMD21 it turns out that attachInterrupt() calls macro digitalPinToInterrupt() expecting a enum EExt_Interrupts value. If you store the results of digitalPinToInterrupt(8) to an int, or use it as the interrupt parameter, you get 8, not interrupt 11. but if you call  attachInterrupt(11, ...) it converts it to interrupt 2 - not good. So there's a sneaky conversion between EExt_Interrupts  and int somewhere. Most of the time digitalPinToInterrupt() appears to do nothing until an EExt_Interrupts can be accepted. Anyway, that was an adventure with the Segger J-link debugger, Doxygen, and find | xargs | grep in the bowels of the Arduino board code, samd/\<ver>/cores/arduino/WVariant.h and Winterrupts.c may be of interest.
+**The attachInterrupt()) rabbit hole**: With no initial luck I tried passing interrupt 11 directly into attachInterrupt() instead of digitalPinToInterrupt(8). For the QT Py SAMD21 it turns out that attachInterrupt() calls macro digitalPinToInterrupt() expecting a enum EExt_Interrupts value. If you store the results of digitalPinToInterrupt(8) to an int, or use it as the interrupt parameter, you get 8, not interrupt 11. but if you call  attachInterrupt(11, ...) it converts it to interrupt 2 - not good. So there's a sneaky conversion between EExt_Interrupts  and int somewhere. Most of the time digitalPinToInterrupt() appears to do nothing until an EExt_Interrupts can be accepted. Anyway, that was an adventure with the Segger J-link debugger, Doxygen, and find | xargs | grep in the bowels of the Arduino board code, samd/\<ver>/cores/arduino/WVariant.h and WInterrupts.c may be of interest.
 
-**Anyway...** so finally I modified the IRLib2 code to allow me to indicate that the IR LED signal is inverted (my transceiver pulls the signal down when IR is present) and provided a global readRecvPin() function that can invert the interpretation of the digitalRead(), i.e., HIGH from MARK to SPACE. That allows dump.ino to spit out something like:
+**... attachInterrupt() revisited ...** For **SAMD** all pins are interrupt capable so digdigitalPinToInterrupt() just returns the pin number. The conversion from pin to interrupt number occurs in attach/detachInterrupt with a pin descriptor table lookup.
+
+**Anyway...** so finally I modified the IRLib2 code to allow me to indicate that the IR LED signal is inverted (my transceiver pulls the signal down when IR is present) and provided a global DIGTAL_READ() macro that can invert the polarity of digitalRead(), i.e., HIGH goes from MARK to SPACE. That allows dump.ino to spit out something like:
 
 ```
 Decoded Unknown(0): Value:0 Adrs:0 (0 bits) 
@@ -90,16 +93,17 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 ## ToDo List
 
+* Add the footprint for the ItsyBitsy MCU.
 * Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pads.
-* Route IR_rx data line to an interrupt capable pin on the MCU.
-* Add 1µF decoupling caps for encoder/decoder.
-* Maybe add some test points for access to inaccessible pads.
+* Add some test points for access to inaccessible pads.
 * Maybe flip the MCU and feed the USB cable out of the back slot.
 * Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
 
 ## Notes
 
+1. The ItsyBitsy has been added as an option since it has SPI Flash memory for storing codes and macros and there is a Bluetooth LE model.
+1. I plan to add solder holes for 4mm pitch quick connect [wire terminals](https://www.digikey.com/short/wv4jwn28).
 1. Contact tracks for K2 and K3 are rated for 1.5A to reduce the width (to 20mil) to allow for routing to the far pins. A second bottom layer track could be added if needed.
 
 ## References
@@ -140,7 +144,7 @@ Other resources to investigate:
 |    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
 |   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
 |  **MCU**  | **Headers**                                                  |    **&**    |   **Terminals**    |                       |                |                  |
-|    U3     | MCU - Adafruit QT Py                                         |      1      |                    |                       |                |                  |
+|    U3     | MCU - Adafruit QT Py or ItsyBitsy                            |      1      |                    |                       |                |                  |
 |  U3-hdr   | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |      2      |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
 |    J1     | [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |      1      |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.182)         |
 |    J1     | Screw Terminals (optional)                                   |             |                    |                       |                |                  |
@@ -177,7 +181,12 @@ Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-sh
 **Candidates**:
 
 * QT Py [search](https://www.adafruit.com/?q=qt+py&sort=BestMatch)
-* ~~Itsy Bitsy~~
+* Itsy Bitsy
+  * M0 Express #[3727](https://www.adafruit.com/product/3727) $11.95 48MHz / 2MB SPI Flash / red and RGB DotStar LEDs
+  * nRF52840 **BLE** #[4481](https://www.adafruit.com/product/4481) $19.95 64MHz /  red mini DotStar RGB LEDs
+  * SAMD51 #[3800](https://www.adafruit.com/product/3800) $14.95 120MHz / red and RGB DotStar LEDs
+  * RP2040 #[3888](https://www.adafruit.com/product/4888) Not Arduino IDE compatible yet.
+
 
 ## Board
 
