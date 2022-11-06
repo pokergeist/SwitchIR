@@ -97,6 +97,7 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 * Add the footprint for the ItsyBitsy MCU.
 * Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pads.
+* Consider adding I2C UART for HC-05 Bluetooth module.
 * Add some test points for access to inaccessible pads.
 * Maybe flip the MCU and feed the USB cable out of the back slot.
 * Poll for larger pitch screw terminals.
