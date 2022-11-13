@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
 | 2022-11-06 | Adding ItsyBitsy into the mix.                               |
 | 2022-11-04 | Success with IRLib2.                                         |
 | 2022-11-03 | Moving from the IRDA hardware to something else. See below.  |
@@ -140,10 +141,11 @@ Other resources to investigate:
 |  Device   | Component                                                    |  Quantity   | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
 | :-------: | ------------------------------------------------------------ | :---------: | :----------------: | :-------------------: | :------------: | ---------------- |
 |  **IR**   | **Send/Receive**                                             | **Section** |                    |                       |                |                  |
-|    U1     | IR Receiver                                                  |             |                    |                       |                |                  |
-|    D1     | IR Transmitter                                               |             |                    |                       |                |                  |
+|    U1     | IR Envelope Detector (TSOP53**4**38)                         |      1      |       $1.22        |        $0.772         |     $1.22      | $0.772           |
+|  U1 alt   | IR Envelope Detector (TSOP53**5**38)                         |      1      |      ()$1.37)      |       ()$1.072)       |    ()$1.37)    | ()$1.072)        |
+|    U2     | IR Carrier Detector                                          |      1      |       $1.23        |        $0.965         |     $1.23      | $0.965           |
+|    D1     | IR Transmitter                                               |             |       $0.75        |         $0.68         |     $1.50      | $1.36            |
 | **Relay** | **Section**                                                  |             |                    |                       |                |                  |
-|    R1     | 47Ω 1206 [resistor](https://www.digikey.com/short/h57hp7z4)  |      1      |       $0.10        |        $0.032         |     $0.10      | $0.03            |
 |    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
 |   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
 |  **MCU**  | **Headers**                                                  |    **&**    |   **Terminals**    |                       |                |                  |
@@ -159,15 +161,38 @@ Pricing for (20) boards is based on (5) 2x2 panels. Total pricing for some compo
 
 ## Components
 
-### IR Receiver
+### IR Receiver, Envelope Detector
 
 [D-K Search](https://www.digikey.com/short/44rdjth4)
 
-Adafruit #[157](https://www.adafruit.com/product/157)
+Vishay [TSOP53438](https://www.digikey.com/short/1jd1m5vc) - 238 438 preferred for RC-5 RC-6 Panasonic NEC Sharp r-step Thomson RCA
+
+Vishay [TSOP53538](https://www.digikey.com/short/1hjpj9q8) 138 338 538 preferred for MCIR Mitsubishi RECS-80 Code r-map XMP-1, XMP-2 RCMM
+
+Adafruit #[157](https://www.adafruit.com/product/157) (Vishay TSOP38238 - older series)
+
+0.60 x 0.30mm, 2.54mm pitch mounting
+
+### IR Receiver, Carrier Detector
+
+* Vishay [TSMP58000](https://www.digikey.com/short/052d7012) (end-of-life) [datasheeet](https://www.vishay.com/docs/82485/tsmp58000.pdf)
+  * 0.70 x 0.50mm, 2.54mm pitch mounting
+
+* [TSMP98000](https://www.digikey.com/short/r579ptn3) (new) [datasheet](https://www.vishay.com/docs/82908/tsmp98000.pdf) - no pricing
 
 ### IR Transmitter
 
 Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-shop.adafruit.com/datasheets/IR333_A_datasheet.pdf)
+
+​	5mm 2.54mm pitch 0.5mm dia / 20° @20mA
+
+| Current | Conditions | Vf Typ (V) | Vf Max (V) |
+| :-----: | :--------: | :--------: | :--------: |
+|  20mA   |     -      |    1.2     |    1.5     |
+|  100mA  |  100µs 1%  |    1.4     |    1.8     |
+|  1.0A   |    " "     |    2.6     |    4.0     |
+
+**Dropping Resistor**: (5V - 1.6Vf) / 100mA = 34Ω   @ 100mA (x 2, hence 5V rail)
 
 ### Solid-State Relays
 
@@ -179,6 +204,28 @@ Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-sh
 
   * LED trigger: 3mA max, Vf=1.1/1.27/1.4V
 
+#### MOSFET
+
+Rohm [RJK005N03FRAT146]() 0.37 / 0.281
+
+### Passives
+
+#### C1 C2: 4.7µF electrolytic cap 16V 20% x 2
+
+​	Kemet [ESK475M016AC3AA](https://www.digikey.com/short/0jd8j3q3) 0.24 / 0.166
+
+#### R1 R2: 100Ω 5% 1/4W 1206 resistor
+
+​	Stackpole [RMCF1206JT100R](https://www.digikey.com/short/fhrwjb7f) 0.10 / 0..25
+
+#### R3 R3: 4.7kΩ 5% 1/4W 1206
+
+​	Stackpole [RMCF1206FT4K70](https://www.digikey.com/short/j2bbwfmh) 0.10 / 0.032
+
+#### R5 R6: 33Ω 1% 1/4W 1206
+
+​	Yageo [RC1206FR](https://www.digikey.com/short/n2cqt5dm)-0733RL 0.10 / 0.066
+
 ### MCU
 
 **Candidates**:
@@ -189,7 +236,6 @@ Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-sh
   * nRF52840 **BLE** #[4481](https://www.adafruit.com/product/4481) $19.95 64MHz /  red mini DotStar RGB LEDs
   * SAMD51 #[3800](https://www.adafruit.com/product/3800) $14.95 120MHz / red and RGB DotStar LEDs
   * RP2040 #[3888](https://www.adafruit.com/product/4888) Not Arduino IDE compatible yet.
-
 
 ## Board
 
