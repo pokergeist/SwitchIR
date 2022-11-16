@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-16 | The last part will arrived tomorrow. The board is fabbed and will arrive next week. |
 | 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
 | 2022-11-06 | Adding ItsyBitsy into the mix.                               |
 | 2022-11-04 | Success with IRLib2.                                         |
@@ -245,5 +246,4 @@ Rohm [RJK005N03FRAT146]() 0.37 / 0.281
 
 ## Enclosure
 
-[README file](hardware/enclosure/README.md) in hardware/enclosure/
-
+[README file](hardware/enclosure/README.md) in hardware/enclosure/.
