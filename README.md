@@ -97,13 +97,15 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 ## ToDo List
 
-* Add the footprint for the ItsyBitsy MCU.
+* ~~Add the footprint for the ItsyBitsy MCU~~.
 * Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pads.
 * Consider adding I2C UART for HC-05 Bluetooth module.
 * Add some test points for access to inaccessible pads.
-* Maybe flip the MCU and feed the USB cable out of the back slot.
 * Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
+* **Done**:
+  * Flip the MCU and feed the USB cable out of the back slot.
+
 
 ## Notes
 
@@ -145,7 +147,8 @@ Other resources to investigate:
 |    U1     | IR Envelope Detector (TSOP53**4**38)                         |      1      |       $1.22        |        $0.772         |     $1.22      | $0.772           |
 |  U1 alt   | IR Envelope Detector (TSOP53**5**38)                         |      1      |      ()$1.37)      |       ()$1.072)       |    ()$1.37)    | ()$1.072)        |
 |    U2     | IR Carrier Detector                                          |      1      |       $1.23        |        $0.965         |     $1.23      | $0.965           |
-|    D1     | IR Transmitter                                               |             |       $0.75        |         $0.68         |     $1.50      | $1.36            |
+|    D1     | IR Transmitter                                               |      2      |       $0.75        |         $0.68         |     $1.50      | $1.36            |
+|    Q1     | [MOSFET](https://www.digikey.com/short/qvnjfq3w)             |      1      |       $0.37        |        $0.281         |     $0.37      | $0.281           |
 | **Relay** | **Section**                                                  |             |                    |                       |                |                  |
 |    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
 |   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
@@ -207,7 +210,7 @@ Adafruit #[387](https://www.adafruit.com/product/387) [datasheet](https://cdn-sh
 
 #### MOSFET
 
-Rohm [RJK005N03FRAT146]() 0.37 / 0.281
+Rohm [RJK005N03FRAT146](https://www.digikey.com/short/qvnjfq3w) [datasheet](https://media.digikey.com/pdf/Data%20Sheets/Rohm%20PDFs/RJK005N03FRA_DS.pdf)
 
 ### Passives
 
