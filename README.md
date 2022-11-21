@@ -130,9 +130,7 @@ hi-fi-remote.com's IRP and JP1 project
 * IRP (IR Remote Protocol description notation)
   * John Long's [Interpreting Decoded IR Signals](http://www.hifi-remote.com/johnsfine/DecodeIR.html) (Listings and details)
   * Graham Dixon's [IRP Notation](http://hifi-remote.com/wiki/index.php?title=IRP_Notation)
-  * IRP Parsers
-    * HARCToolbox [IrpMaster](http://www.harctoolbox.org/IrpMaster.html) "a program and API for the generation of IR signals from IRP notation" (Java)
-    * [IrpTransmogrifier](https://github.com/bengtmartensson/IrpTransmogrifier) "Parser for IRP notation protocols, with rendering, code generation, recognition applications."
+  * IRP Parser Transmogrifier on [GitHub](https://github.com/bengtmartensson/IrpTransmogrifier) & [HARCToolbox](http://www.harctoolbox.org/IrpTransmogrifier.html) "Parser for IRP notation protocols, with rendering, code generation, recognition applications."
 * JP1 Remote Project
   * [History](http://www.hifi-remote.com/wiki/index.php/The_History_of_the_JP1_Project) with links to other interesting projects
   * JP1 [Main](http://www.hifi-remote.com/wiki/index.php/Main_Page) Page
