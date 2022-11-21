@@ -246,6 +246,8 @@ Rohm [RJK005N03FRAT146](https://www.digikey.com/short/qvnjfq3w) [datasheet](http
 
 **Eagle**:
 
+![board-top](hardware/board/board-top-mfg.png)
+
 ![board-top](hardware/board/board-top.png)
 
 ## Enclosure
