@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-21 | Created a cutout for QT Py Flash memory. The boards are on almost here. |
 | 2022-11-16 | The last part will arrived tomorrow. The board is fabbed and will arrive next week. |
 | 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
 | 2022-11-06 | Adding ItsyBitsy into the mix.                               |
@@ -98,7 +99,7 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 ## ToDo List
 
 * ~~Add the footprint for the ItsyBitsy MCU~~.
-* Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pads.
+* ~~Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pad~~s.
 * Consider adding I2C UART for HC-05 Bluetooth module.
 * Add some test points for access to inaccessible pads.
 * Poll for larger pitch screw terminals.
@@ -148,7 +149,7 @@ Other resources to investigate:
 |  U1 alt   | IR Envelope Detector (TSOP53**5**38)                         |      1      |      ()$1.37)      |       ()$1.072)       |    ()$1.37)    | ()$1.072)        |
 |    U2     | IR Carrier Detector                                          |      1      |       $1.23        |        $0.965         |     $1.23      | $0.965           |
 |    D1     | IR Transmitter                                               |      2      |       $0.75        |         $0.68         |     $1.50      | $1.36            |
-|    Q1     | [MOSFET](https://www.digikey.com/short/qvnjfq3w)             |      1      |       $0.37        |        $0.281         |     $0.37      | $0.281           |
+|    Q1     | [MOSFET](https://www.digikey.com/short/qvnjfq3w) or [alt](https://www.digikey.com/short/5jzjq90m) |      1      |       $0.37        |        $0.281         |     $0.37      | $0.281           |
 | **Relay** | **Section**                                                  |             |                    |                       |                |                  |
 |    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
 |   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
