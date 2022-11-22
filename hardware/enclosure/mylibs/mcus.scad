@@ -3,7 +3,6 @@
  * Common microcontrollers
  **************************/
 
-
 include <components.scad>
 
 module qt_py (dx, dy, dz) {

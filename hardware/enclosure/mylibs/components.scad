@@ -25,7 +25,9 @@ module pcboard() {
     cuboid([pcb_x, pcb_y, pcb_thickness], align=V_TOP,
            fillet=2, edges=EDGES_Z_ALL);
 
-    holes();
+    if (HOLES) {
+      holes();
+    }
   }
 }
 
@@ -73,3 +75,7 @@ module dip_header(x, y, z, sepa, dx, dy, dz,
     component_rect(x, y, z, color, dx, dy, dz);
   }
 }
+
+// functions
+
+function mm(in) = in * 25.4;

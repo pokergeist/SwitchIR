@@ -25,7 +25,3 @@ box_height = 22;
 
 pcb_thickness = 1.6;
 header_thickness = mm(0.200);
-
-// functions
-
-function mm(in) = in * 25.4;
