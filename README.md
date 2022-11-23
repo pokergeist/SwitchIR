@@ -16,6 +16,7 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-22 | Built a board and working with IRLib2 examples & (5) remotes.<br>Waiting for QT Py SPI Flash chips. |
 | 2022-11-21 | Created a cutout for QT Py Flash memory. The boards arrive today. |
 | 2022-11-16 | The last part will arrived tomorrow. The board is fabbed and will arrive next week. |
 | 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
@@ -32,6 +33,10 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
 ### Testing Status:
+
+**2022-11-22**
+
+**Mo' Better success**. I'm getting meaningful results from Chris' example sketches dump, analyze, & freq.ino - and sorting out various results from (5) remotes. Throw in a little Perl code to parse the dump results just for fun. Next come the sending examples, then capture and save to flash memory.
 
 **2022-11-04**
 
@@ -100,6 +105,8 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 * ~~Add the footprint for the ItsyBitsy MCU~~.
 * ~~Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pad~~s.
+* Find out where the hell the SSRelay footprints came from! Too small! Either get what goes there or upsize them on the next board version. The relays were the least of my concern so I didn't bother trying to mount them until now. I do need to check the combined current load.
+* Move the IR LEDs back. After bending them 90° they protrude forward a bit much. 
 * Consider adding I2C UART for HC-05 Bluetooth module.
 * Add some test points for access to inaccessible pads.
 * Poll for larger pitch screw terminals.
@@ -129,6 +136,7 @@ hi-fi-remote.com's IRP and JP1 project
 
 * IRP (IR Remote Protocol description notation)
   * John Long's [Interpreting Decoded IR Signals](http://www.hifi-remote.com/johnsfine/DecodeIR.html) (Listings and details)
+  * Brief and Incomplete [Guide](http://www.hifi-remote.com/wiki/index.php?title=Brief_and_incomplete_guide_to_reading_IRP) to Reading IRP
   * Graham Dixon's [IRP Notation](http://hifi-remote.com/wiki/index.php?title=IRP_Notation)
   * IRP Parser Transmogrifier on [GitHub](https://github.com/bengtmartensson/IrpTransmogrifier) & [HARCToolbox](http://www.harctoolbox.org/IrpTransmogrifier.html) "Parser for IRP notation protocols, with rendering, code generation, recognition applications."
 * JP1 Remote Project
