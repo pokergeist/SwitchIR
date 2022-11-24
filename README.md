@@ -16,21 +16,12 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
+| 2022-11-24 | Rev 2b boards have been ordered. Cleaned up this page. Pricing & spreadsheet. |
 | 2022-11-23 | Fixed the relay footprints, changed the caps to SMD, moved the carrier detector<br/>input to pin 3 (IRLib default), changed RN1 value. Parts list update pending. |
-| 2022-11-23 | Found out this morning that the MOSFET lib part was totally fubar. Thanks<br/> "Ultra" Librarian. I spend more time fixing imported library parts. Rev 2b on the way. |
+| 2022-11-23 | Found out this morning that the MOSFET lib part was totally fubar. Thanks<br/> "Ultra" Librarian. I spend more time fixing imported library parts. |
 | 2022-11-22 | Built a board and working with IRLib2 examples & (5) remotes.<br/>Waiting for QT Py SPI Flash chips. |
 | 2022-11-21 | Created a cutout for QT Py Flash memory. The boards arrive today. |
-| 2022-11-16 | The last part will arrived tomorrow. The board is fabbed and will arrive next week. |
-| 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
-| 2022-11-06 | Adding ItsyBitsy into the mix.                               |
 | 2022-11-04 | Success with IRLib2.                                         |
-| 2022-11-03 | Moving from the IRDA hardware to something else. See below.  |
-| 2022-11-01 | Replacement oscillators are on order (and more QT Pys and headers). |
-| 2022-10-31 | Boards are in, (1) panel partially populated and under test. |
-| 2022-10-29 | Parts are here, boards are on their way from China.          |
-| 2022-10-26 | Rev 1b boards ordered. Order for passives is pending.        |
-| 2022-10-25 | Reworking defective transceiver library part and added passives (finally). |
-| 2022-10-25 | Rev 1a ~~boards and~~ parts have been ordered.               |
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
@@ -44,92 +35,31 @@ Tested QT Py SAMD21 current output. The relays like 10mA and drop GPIO output to
 
 **2022-11-22**
 
-**Mo' Better success**. I'm getting meaningful results from Chris' example sketches dump, analyze, & freq.ino - and sorting out various results from (5) remotes. Throw in a little Perl code to parse the dump results just for fun. Next come the sending examples, then capture and save to flash memory.
-
-**2022-11-04**
-
-**Success** - finally. I'm running IRLib2 example programs dump.ino and analyze.ino after giving IRLib the option to invert the interpreted polarity of the input signal from the IR receiver.
-
-**The attachInterrupt()) rabbit hole**: With no initial luck I tried passing interrupt 11 directly into attachInterrupt() instead of digitalPinToInterrupt(8). For the QT Py SAMD21 it turns out that attachInterrupt() calls macro digitalPinToInterrupt() expecting a enum EExt_Interrupts value. If you store the results of digitalPinToInterrupt(8) to an int, or use it as the interrupt parameter, you get 8, not interrupt 11. but if you call  attachInterrupt(11, ...) it converts it to interrupt 2 - not good. So there's a sneaky conversion between EExt_Interrupts  and int somewhere. Most of the time digitalPinToInterrupt() appears to do nothing until an EExt_Interrupts can be accepted. Anyway, that was an adventure with the Segger J-link debugger, Doxygen, and find | xargs | grep in the bowels of the Arduino board code, samd/\<ver>/cores/arduino/WVariant.h and WInterrupts.c may be of interest.
-
-**... attachInterrupt() revisited ...** For **SAMD** all pins are interrupt capable so digdigitalPinToInterrupt() just returns the pin number. The conversion from pin to interrupt number occurs in attach/detachInterrupt with a pin descriptor table lookup.
-
-**Anyway...** so finally I modified the IRLib2 code to allow me to indicate that the IR LED signal is inverted (my transceiver pulls the signal down when IR is present) and provided a global DIGTAL_READ() macro that can invert the polarity of digitalRead(), i.e., HIGH goes from MARK to SPACE. That allows dump.ino to spit out something like:
-
-```
-Decoded Unknown(0): Value:0 Adrs:0 (0 bits) 
-Raw samples(100): Gap:57
-  Head: m195  s75
-0:m65511 s75	1:m65511 s75		 2:m65511 s75	3:m65511 s74		 
-4:m65511 s75	5:m65511 s75		 6:m65511 s75	7:m65511 s75		 
-8:m65511 s75	9:m65510 s75		 10:m65511 s75	11:m65511 s75		 
-12:m65511 s75	13:m65511 s75		 14:m65510 s75	15:m65511 s75		 
-
-16:m65511 s75	17:m65511 s75		 18:m65511 s75	19:m65510 s75		 
-20:m65511 s75	21:m65511 s75		 22:m65511 s75	23:m572 s75		 
-24:m65511 s75	25:m65511 s75		 26:m65511 s75	27:m65511 s74		 
-28:m65511 s75	29:m65511 s75		 30:m65511 s75	31:m65511 s75		 
-
-32:m65511 s75	33:m65510 s75		 34:m65511 s75	35:m65511 s75		 
-36:m65511 s75	37:m65511 s75		 38:m65510 s75	39:m65511 s75		 
-40:m65511 s75	41:m65511 s75		 42:m65511 s75	43:m65511 s74		 
-44:m65511 s75	45:m65511 s75		 46:m65511 s75	47:m572 s75		 
-
-48:m65511
-Extent=3084023
-Mark  min:572	 max:65511
-Space min:74	 max:75
-```
-
-The IRDA IR receiver output is not demodulated (envelope detector) like the Vishay TSOP series would yield, so don't put much stock in those values.
-
-I'm off to evaluate new IR hardware as the current transceiver is only good for 1m.
-
-**2022-11-03**
-
-It occurred to me that since I was receiving transmitted data, apparently from the IR receiver, it looks like the transmitter is working.
-
-**Paradigm shift**: I'll be abandoning the IRDA hardware as it is not applicable to Consumer IR remote controls. I'll be looking to do more with Chris Young's IRLib2 library and direct access to the IR transceiver.
-
-**2022-11-01**
-
-In lieu of an oscillator that fits, a function generator was used to provide1.8432MHz timing to the encoder/decoder IC. Remote IR signals were received and are being parsed. It is not obvious that messages transmitted by the MCU are being output by the IR transceiver. The operation of IR remotes is visible via my cell phone camera and other CCD devices. It's possible that it's a soldering issue - I'll know more when I get the new hardware. I'm eager to get these boards fab'ed with pick & place equipment.
-
----
-
-**2022-10-31**
-
-One panel of four boards is populated, sans relays and QT Py SAMD21 MCUs. Only one board has a MCU right now. More headers and QT Pys are on order.
-
-At the moment the encoder/decoder is not getting a clock input from the oscillator. I'll get 3V/GND to the other boards and see if it's a solder rework issue or a chip orientation issue. There is no obvious marking except maybe a modified pad 1 which doesn't match the datasheet.
-
-Transmitted data (serial and IR) is showing up at the encoder/decoder's input pins.
-
-**Conclusion:**
-
-An incorrect prototype footprint was used. A replacement is being ordered that will fit. Future production revisions will revert to the cheaper Ralton.
+I'm getting meaningful results from Chris' example sketches dump, analyze, & freq.ino - and sorting out various results from (5) remotes. Throw in a little Perl code to parse the dump results just for fun. Next come the sending examples, then capture and save to flash memory.
 
 ## ToDo List
 
-* ~~Maybe move the carrier detector output to pin 3 to eliminate a IRLib code change~~.
-* ~~Add the footprint for the ItsyBitsy MCU~~.
+* ~~Move the carrier detector output to pin 3 to eliminate a IRLib code change~~.
 * ~~Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pad~~s.
 * ~~SMD Caps~~.
 * ~~Fix the SSRelay footprints~~.
 * Move the IR LEDs back. After bending them 90° they protrude forward a bit much. 
-* Consider adding I2C UART for HC-05 Bluetooth module.
+* Consider adding I2C UART for HC-05 Bluetooth module. USE my Qwiic/STEMMA QT module.
 * Add some test points for access to inaccessible pads.
 * Poll for larger pitch screw terminals.
 * Determine if flyback diodes will be required for inductive loads across the relay contacts.
-* **Done**:
-  * Flip the MCU and feed the USB cable out of the back slot.
 
 
 ## Notes
 
-1. The ItsyBitsy has been added as an option since it has SPI Flash memory for storing codes and macros and there is a Bluetooth LE model.
+1. The ItsyBitsy may be an option since it has SPI Flash memory for storing codes and macros and there is a Bluetooth LE model.
 1. I plan to add solder holes for 4mm pitch quick connect [wire terminals](https://www.digikey.com/short/wv4jwn28).
 1. Contact tracks for K2 and K3 are rated for 1.5A to reduce the width (to 20mil) to allow for routing to the far pins. A second bottom layer track could be added if needed.
+1. The QT Py accesses the SPI FLASH chip via **SPI1** with chip select pin **17**, so there's no interference with our use of the external SPI pins.
+1. For HC-05 Bluetooth my Qwiic/STEMMA QT module can be used.
+
+
+## 
 
 ## References
 
@@ -164,24 +94,44 @@ Other resources to investigate:
 |  Device   | Component                                                    |  Quantity   | Unit cost @1 board | Unit cost @ 20 boards | $ / bd (@1 bd) | $ / bd (@20 bds) |
 | :-------: | ------------------------------------------------------------ | :---------: | :----------------: | :-------------------: | :------------: | ---------------- |
 |  **IR**   | **Send/Receive**                                             | **Section** |                    |                       |                |                  |
-|    U1     | IR Envelope Detector (TSOP53**4**38)                         |      1      |       $1.22        |        $0.772         |     $1.22      | $0.772           |
-|  U1 alt   | IR Envelope Detector (TSOP53**5**38)                         |      1      |      ()$1.37)      |       ()$1.072)       |    ()$1.37)    | ()$1.072)        |
-|    U2     | IR Carrier Detector                                          |      1      |       $1.23        |        $0.965         |     $1.23      | $0.965           |
-|    D1     | IR Transmitter                                               |      2      |       $0.75        |         $0.68         |     $1.50      | $1.36            |
-|    Q1     | [MOSFET](https://www.digikey.com/short/qvnjfq3w) or [alt](https://www.digikey.com/short/5jzjq90m) |      1      |       $0.37        |        $0.281         |     $0.37      | $0.281           |
+|    U1     | IR Envelope Detector ([TSOP53438](https://www.digikey.com/short/wt54trr8)) |      1      |       $1.22        |        $0.772         |     $1.22      | $0.77            |
+|  U1 alt   | IR Envelope Detector ([TSOP53538](https://www.digikey.com/short/c2m90j2p)) |      1      |      ()$1.37)      |       ()$1.072)       |    ()$1.37)    | ()$1.07)         |
+|    U2     | IR Carrier Detector<br/>([TSMP58000](https://www.digikey.com/short/z079p85v)) |      1      |       $1.23        |        $0.965         |     $1.23      | $0.97            |
+|    D1     | IR [Transmitter](https://www.adafruit.com/product/387)       |      2      |       $0.75        |         $0.68         |     $1.50      | $0.64            |
+|    Q1     | [MOSFET](https://www.digikey.com/short/qvnjfq3w) or [alt](https://www.digikey.com/short/5jzjq90m) |      1      |       $0.37        |        $0.281         |     $0.37      | $0.28            |
 | **Relay** | **Section**                                                  |             |                    |                       |                |                  |
-|    RN1    | [resistor array](https://www.digikey.com/short/81f2wp7h) 4@100Ω 1206 |      1      |       $0.10        |        $0.087         |     $0.10      | $0.09            |
-|   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/c07nbzqb)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
+|    RN1    | [resistor array](https://www.digikey.com/short/tt50jn33) 4@150Ω 1206 |      1      |       $0.17        |        $0.147         |     $0.17      | $0.15            |
+|   K1-K4   | 2A SS [Relays](https://www.digikey.com/short/w7qrtp8h)       |      4      |       $1.85        |        $1.232         |      7.40      | $4.93            |
+| **MISC**. | **Section**                                                  |             |                    |                       |                |                  |
+|   C1 C2   | [Cap](https://www.digikey.com/short/v734w1qh) 4.7µF Tant 10% 10V 1206 |      2      |       $0.35        |        $0.244         |     $0.70      | $0.49            |
+| R1 R2 R7  | [Res](https://www.digikey.com/short/4qhq3d02) 100Ω 1% 1206   |      3      |       $0.10        |        $0.032         |     $0.30      | $0.10            |
+|   R3 R4   | [Res](https://www.digikey.com/short/tn7m034f) 4.7kΩ 1% 1206  |      2      |       $0.10        |        $0.032         |     $0.20      | $0.06            |
+|   R5 R6   | [Res](https://www.digikey.com/short/84vd337r) 33Ω 1% 1203    |      2      |       $0.10        |        $0.065         |     $0.20      | $0.13            |
+|    R8     | [Res](https://www.digikey.com/short/tm2btwjj) 1kΩ 1% 1203    |      1      |       $0.10        |        $0.025         |     $0.10      | $0.03            |
 |  **MCU**  | **Headers**                                                  |    **&**    |   **Terminals**    |                       |                |                  |
-|    U3     | MCU - Adafruit QT Py or ItsyBitsy                            |      1      |                    |                       |                |                  |
-|  U3-hdr   | [Header](https://www.digikey.com/short/92q9jh8r) 7POS Gold (**optional**) |      2      |       $0.61        |        $0.532         |    ()$1.06)    | ()$1.22)         |
-|    J1     | [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |      1      |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.182)         |
+|    U3     | MCU - Adafruit QT Py<br/> [DK](https://www.digikey.com/short/vn39f2qr) [AF](https://www.adafruit.com/product/4600) |      1      |       $7.50        |         $7.50         |     $7.50      | $7.50            |
+|  U3-hdr   | MCU [Header](https://www.digikey.com/short/d52zp1m5) 7POS 4.57mm (**optional, #1**) |      2      |      ($1.11)       |       ($0.9152)       |    ($2.22)     | ($1.83)          |
+|  U3-hdr   | MCU [Header](https://www.digikey.com/short/92q9jh8r) 7POS 8.51mm Gold (**optional, #1**) |      2      |       $0.61        |        $0.532         |    ($1.22)     | ($1.06)          |
+| SPI FLASH | [FLASH](https://www.adafruit.com/product/4763) IC (**optional**) |      1      |      ($1.25)       |        ($1.13)        |    ($1.25)     | ($1.13)          |
+|    J1     | Relay [Header](https://www.digikey.com/short/9pz3w55d) 2x4 (**optional**) |      1      |      ($1.34)       |       ($1.182)        |    ($1.34)     | ($1.18)          |
 |    J1     | Screw Terminals (optional)                                   |             |                    |                       |                |                  |
-|           | **Total**                                                    |             |                    |                       |   **$xx.xx**   | **$xx.xx**       |
+|           | **Total**                                                    |             |                    |                       |   **$20.89**   | **$16.03**       |
 
-Digi-Key (US) Component pricing as of 2022-10-26.
+Digi-Key (US) Component pricing as of 2022-11-xx.
 
-Pricing for (20) boards is based on (5) 2x2 panels. Total pricing for some components can be further reduced by ordering (25) units.
+Pricing for (20) boards is based on (5) 2x2 panels. Price breaks for some components are at (5) or (25) units.
+
+**#1** MCU can use Castellated mounting even with SPI Flash attached.
+
+## Pricing
+
+Pricing for **unassembled boards** would be about $1.70 each with no parts. So about $23.00/board plus parts and kit shipping for DIY SMD & Through-hole assembly. As of 2022-11-24.
+
+Pricing for SMD assembled boards would be roughly $18.50 plus shipping for through-hole parts (divided among 20 boards or more) and DIY Through-hole kit shipping. This is a ***very*** rough estimate as engineering, shipping, and coupon availability vary widely. But generally, component cost is less than I pay before shipping. SMD component shipping cost is bundled with board shipping cost which makes it a minimal cost item. As of 2022-11-24.
+
+This does not consider costs for optional board components (headers, terminals, SPI FLASH memory), an enclosure, cables, or power supply.
+
+See the component pricing spreadsheet (.ods) for the most current pricing.
 
 ## Components
 
