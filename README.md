@@ -16,7 +16,9 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 |    Date    | Status                                                       |
 | :--------: | ------------------------------------------------------------ |
-| 2022-11-22 | Built a board and working with IRLib2 examples & (5) remotes.<br>Waiting for QT Py SPI Flash chips. |
+| 2022-11-23 | Fixed the relay footprints, changed the caps to SMD, moved the carrier detector<br/>input to pin 3 (IRLib default), changed RN1 value. Parts list update pending. |
+| 2022-11-23 | Found out this morning that the MOSFET lib part was totally fubar. Thanks<br/> "Ultra" Librarian. I spend more time fixing imported library parts. Rev 2b on the way. |
+| 2022-11-22 | Built a board and working with IRLib2 examples & (5) remotes.<br/>Waiting for QT Py SPI Flash chips. |
 | 2022-11-21 | Created a cutout for QT Py Flash memory. The boards arrive today. |
 | 2022-11-16 | The last part will arrived tomorrow. The board is fabbed and will arrive next week. |
 | 2022-11-13 | Board updated, cleanup and updates pending. Board and parts orders pending. |
@@ -32,7 +34,19 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
+---
+
+[TOC]
+
+---
+
 ### Testing Status:
+
+**2022-11-23**
+
+No transmit for me. The imported MOSFET's connections were totally botched (3 for 3).
+
+Tested QT Py SAMD21 current output. The relays like 10mA and drop GPIO output to 2.90V. That changes the dropping resistor to 163Ω - the next closest was 150Ω.
 
 **2022-11-22**
 
@@ -103,9 +117,11 @@ An incorrect prototype footprint was used. A replacement is being ordered that w
 
 ## ToDo List
 
+* ~~Maybe move the carrier detector output to pin 3 to eliminate a IRLib code change~~.
 * ~~Add the footprint for the ItsyBitsy MCU~~.
 * ~~Put a cutout in the board to facilitate the addition of SPI Flash memory to the QT Py when mounted via  castellated pad~~s.
-* Find out where the hell the SSRelay footprints came from! Too small! Either get what goes there or upsize them on the next board version. The relays were the least of my concern so I didn't bother trying to mount them until now. I do need to check the combined current load.
+* ~~SMD Caps~~.
+* ~~Fix the SSRelay footprints~~.
 * Move the IR LEDs back. After bending them 90° they protrude forward a bit much. 
 * Consider adding I2C UART for HC-05 Bluetooth module.
 * Add some test points for access to inaccessible pads.
@@ -224,9 +240,9 @@ Rohm [RJK005N03FRAT146](https://www.digikey.com/short/qvnjfq3w) [datasheet](http
 
 ### Passives
 
-#### C1 C2: 4.7µF electrolytic cap 16V 20% x 2
+#### C1 C2: 4.7µF tantalum cap 10V 10% x 2
 
-​	Kemet [ESK475M016AC3AA](https://www.digikey.com/short/0jd8j3q3) 0.24 / 0.166
+​	Kemet [ESK475M016AC3AA](https://www.digikey.com/short/2bzhn052) 0.55 / 0.291
 
 #### R1 R2: 100Ω 5% 1/4W 1206 resistor
 
