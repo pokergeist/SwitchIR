@@ -34,12 +34,6 @@ The use of an IR transceiver & encoder/decoder will allow the MCU to learn and t
 
 The full complement of Eagle and Gerber files (for PCB fabrication) will be provided after proof-of-concept.
 
----
-
-[TOC]
-
----
-
 ### Testing Status:
 
 **2022-11-23**
